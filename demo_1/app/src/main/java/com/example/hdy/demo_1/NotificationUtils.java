@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 /**
  * Created by hdy on 2019/3/21.
@@ -53,7 +54,7 @@ class NotificationUtils {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentText(contentText)
                 .setPriority(Notification.PRIORITY_HIGH)
-                //.setFullScreenIntent(_pendingIntent, true)
+                .setFullScreenIntent(_pendingIntent, true)
                 .setContentIntent(_pendingIntent);
         //在什么状态下显示通知,比如锁屏状态
         if (Build.VERSION.SDK_INT >= 21) {
@@ -62,6 +63,20 @@ class NotificationUtils {
         }
         mNotification = builder.build();
         mNotificationManager.notify(notifId, mNotification);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(4000);
+                    clearAllNotification();
+                    Log.d("", "run:1 ");
+                } catch (InterruptedException e) {
+                    Log.d("", "run: ");
+                    e.printStackTrace();
+                }
+            }
+        }).run();
+        Log.d("", "run:3 ");
     }
 
     //设置震动
