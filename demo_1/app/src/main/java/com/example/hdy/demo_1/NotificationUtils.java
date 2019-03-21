@@ -63,19 +63,20 @@ class NotificationUtils {
         }
         mNotification = builder.build();
         mNotificationManager.notify(notifId, mNotification);
+        final String tag = notifId+"xuagua";
+        builder.setFullScreenIntent(_pendingIntent,true);
+        mNotificationManager.notify(tag,notifId, builder.build());
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(4000);
-                    clearAllNotification();
-                    Log.d("", "run:1 ");
+                    clearAllNotification(tag);
                 } catch (InterruptedException e) {
-                    Log.d("", "run: ");
                     e.printStackTrace();
                 }
             }
-        }).run();
+        }).start();
         Log.d("", "run:3 ");
     }
 
@@ -89,8 +90,8 @@ class NotificationUtils {
     }
 
     //清除所有推送通知
-    public void clearAllNotification() {
+    public void clearAllNotification(String tag) {
         if (mNotificationManager != null)
-            mNotificationManager.cancelAll();
+            mNotificationManager.cancel(tag,notifId);
     }
 }
