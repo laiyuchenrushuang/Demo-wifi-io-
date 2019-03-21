@@ -54,7 +54,7 @@ class NotificationUtils {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentText(contentText)
                 .setPriority(Notification.PRIORITY_HIGH)
-                .setFullScreenIntent(_pendingIntent, true)
+                //.setFullScreenIntent(_pendingIntent, true)
                 .setContentIntent(_pendingIntent);
         //在什么状态下显示通知,比如锁屏状态
         if (Build.VERSION.SDK_INT >= 21) {
